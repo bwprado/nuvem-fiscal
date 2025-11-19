@@ -1,0 +1,40 @@
+{
+  "name": "nuvem-fiscal",
+  "author": "Bruno Prado",
+  "version": "0.0.2",
+  "description": "TypeScript SDK for Nuvem Fiscal API",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bwprado/nuvem-fiscal.git"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "vitest run",
+    "prepublishOnly": "pnpm run build"
+  },
+  "keywords": [
+    "nuvem-fiscal",
+    "sdk",
+    "typescript",
+    "nfce",
+    "empresa"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  }
+}
