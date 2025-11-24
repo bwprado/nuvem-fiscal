@@ -12,6 +12,7 @@ export interface NuvemFiscalConfig {
   clientSecret?: string;
   baseUrl?: string;
   timeout?: number;
+  environment?: 'homologacao' | 'producao';
 }
 
 export interface Token {

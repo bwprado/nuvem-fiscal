@@ -49,7 +49,7 @@ export class NfceResource {
    * @returns Conteúdo do XML (string).
    */
   async baixarXml(id: string): Promise<string> {
-    return this.client.request<string>(`/nfce/${id}/xml`);
+    return this.client.request<string>(`/nfce/${id}/xml`, { responseType: 'text' });
   }
 
   /**
@@ -58,7 +58,7 @@ export class NfceResource {
    * @returns Buffer do arquivo PDF.
    */
   async baixarPdf(id: string): Promise<ArrayBuffer> {
-     return this.client.request<any>(`/nfce/${id}/pdf`);
+     return this.client.request<ArrayBuffer>(`/nfce/${id}/pdf`, { responseType: 'arraybuffer' });
   }
   
   /**

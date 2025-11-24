@@ -25,7 +25,13 @@ export class NuvemFiscal {
   constructor(config?: NuvemFiscalConfig) {
     this.clientId = config?.clientId || process.env.NUVEM_FISCAL_CLIENT_ID || '';
     this.clientSecret = config?.clientSecret || process.env.NUVEM_FISCAL_CLIENT_SECRET || '';
-    this.baseUrl = config?.baseUrl || process.env.NUVEM_FISCAL_BASE_URL || 'https://api.nuvemfiscal.com.br';
+
+    const environment = config?.environment || 'homologacao';
+    const defaultBaseUrl = environment === 'producao' 
+      ? 'https://api.nuvemfiscal.com.br' 
+      : 'https://api.sandbox.nuvemfiscal.com.br';
+
+    this.baseUrl = config?.baseUrl || process.env.NUVEM_FISCAL_BASE_URL || defaultBaseUrl;
     this.timeout = config?.timeout || 30000;
 
     if (!this.clientId || !this.clientSecret) {
@@ -71,7 +77,7 @@ export class NuvemFiscal {
     }
   }
 
-  public async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+  public async request<T>(endpoint: string, options: RequestInit & { responseType?: 'json' | 'text' | 'arraybuffer' } = {}): Promise<T> {
     await this.authenticate();
 
     const url = `${this.baseUrl}${endpoint}`;
@@ -107,6 +113,14 @@ export class NuvemFiscal {
       // Handle 204 No Content
       if (response.status === 204) {
         return {} as T;
+      }
+
+      const responseType = options.responseType || 'json';
+
+      if (responseType === 'text') {
+        return await response.text() as unknown as T;
+      } else if (responseType === 'arraybuffer') {
+        return await response.arrayBuffer() as unknown as T;
       }
 
       return await response.json() as T;
