@@ -34,3 +34,17 @@ export type Nfce = z.infer<typeof NfceSchema>;
 export type PedidoEmissaoNfce = z.infer<typeof PedidoEmissaoNfceSchema>;
 export type EmpresaListResponse = z.infer<typeof EmpresaListResponseSchema>;
 export type NfceListResponse = z.infer<typeof NfceListResponseSchema>;
+
+export interface CertificadoUpload {
+  certificado: string; // Base64 encoded certificate
+  senha: string; // Certificate password
+}
+
+export interface CertificadoInfo {
+  cpf_cnpj: string;
+  certificado_valido: boolean;
+  certificado_vencimento?: string;
+  certificado_cnpj?: string;
+  created_at?: string;
+  updated_at?: string;
+}

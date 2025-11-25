@@ -2,10 +2,11 @@ import 'dotenv/config';
 import { NuvemFiscalConfig, Token, NuvemFiscalError } from './types';
 import { EmpresaResource } from './resources/empresa';
 import { NfceResource } from './resources/nfce';
+import { CertificadoResource } from './resources/certificado';
 
 /**
  * Cliente principal para interação com a API da Nuvem Fiscal.
- * Gerencia autenticação e acesso aos recursos (Empresa, NFCe, etc).
+ * Gerencia autenticação e acesso aos recursos (Empresa, NFCe, Certificado, etc).
  */
 export class NuvemFiscal {
   private clientId: string;
@@ -16,6 +17,7 @@ export class NuvemFiscal {
 
   public empresa: EmpresaResource;
   public nfce: NfceResource;
+  public certificado: CertificadoResource;
 
   /**
    * Inicializa o cliente da SDK.
@@ -40,6 +42,7 @@ export class NuvemFiscal {
 
     this.empresa = new EmpresaResource(this);
     this.nfce = new NfceResource(this);
+    this.certificado = new CertificadoResource(this);
   }
 
   private async authenticate(): Promise<void> {

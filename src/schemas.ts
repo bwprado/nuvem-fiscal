@@ -46,3 +46,17 @@ export const EmpresaListResponseSchema = z.object({
   data: z.array(EmpresaSchema),
   count: z.number().optional(),
 });
+
+export const CertificadoUploadSchema = z.object({
+  certificado: z.string(), // Base64 string
+  senha: z.string(),
+});
+
+export const CertificadoInfoSchema = z.object({
+  cpf_cnpj: z.string(),
+  certificado_valido: z.boolean(),
+  certificado_vencimento: z.string().optional(),
+  certificado_cnpj: z.string().optional(),
+  created_at: z.string().optional(),
+  updated_at: z.string().optional(),
+}).passthrough();

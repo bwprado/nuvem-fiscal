@@ -58,6 +58,52 @@ const nfce = await client.nfce.emitir({
 A documentação completa dos métodos está disponível via JSDoc (autocomplete no VS Code).
 Para detalhes da API, consulte a [Documentação Oficial da Nuvem Fiscal](https://dev.nuvemfiscal.com.br/docs/api/).
 
+## Desenvolvimento e Testes
+
+### Testes de Integração com Sandbox
+
+Este projeto inclui testes de integração que fazem chamadas reais à API sandbox da Nuvem Fiscal.
+
+#### Configuração
+
+1. Copie o arquivo de exemplo de variáveis de ambiente:
+   ```bash
+   cp .env.example .env.local
+   ```
+
+2. Edite `.env.local` e adicione suas credenciais de sandbox:
+   ```env
+   NUVEM_FISCAL_CLIENT_ID=seu_client_id_sandbox
+   NUVEM_FISCAL_CLIENT_SECRET=seu_client_secret_sandbox
+   ```
+
+3. Execute os testes de integração:
+   ```bash
+   pnpm test src/integration.test.ts
+   ```
+
+#### O que os testes fazem
+
+Os testes de integração (`src/integration.test.ts`) executam:
+
+- **Listar Empresas**: Busca empresas cadastradas no ambiente sandbox
+- **Consultar Empresa**: Obtém detalhes de uma empresa específica
+- **Criar NFCe**: Emite uma nota fiscal de consumidor eletrônica de teste
+- **Listar NFCe**: Lista notas fiscais emitidas
+- **Download de XML**: Baixa o XML de uma NFCe autorizada (se disponível)
+
+> **Nota**: Os testes fazem chamadas reais à API e podem levar alguns segundos para executar. Certifique-se de ter pelo menos uma empresa cadastrada no ambiente sandbox antes de executar o teste de criação de NFCe.
+
+### Executar Todos os Testes
+
+```bash
+# Testes unitários e de integração
+pnpm test
+
+# Apenas testes unitários (mocks)
+pnpm test src/client.test.ts
+```
+
 ## Licença
 
 MIT
